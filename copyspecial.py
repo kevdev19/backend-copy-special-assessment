@@ -30,12 +30,17 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
-    # your code here
+    if not os.path.isdir(dest_dir):
+        os.makedirs(dest_dir)
+    for path in path_list:
+        shutil.copy(path, dest_dir)
     return
 
 
 def zip_to(path_list, dest_zip):
-    # your code here
+    for path in path_list:
+        print(f'zip -j {dest_zip} {path}')
+        subprocess.run(['zip', '-j', dest_zip, path])
     return
 
 
@@ -54,11 +59,17 @@ def main(args):
     # This is input data validation. If something is wrong (or missing) with
     # any required args, the general rule is to print a usage message and
     # exit(1).
-    if not ns.from_dir:
-        parser.print_usage()
-        sys.exit(1)
 
-    get_special_paths(ns.from_dir)
+    if len(sys.argv) < 1:
+        parser.print_usage()
+    path_list = get_special_paths(ns.from_dir)
+
+    if ns.todir:
+        copy_to(path_list, ns.todir)
+    elif ns.tozip:
+        zip_to(path_list, ns.tozip)
+    else:
+        print(*path_list, sep='\n')
 
 
 if __name__ == "__main__":
