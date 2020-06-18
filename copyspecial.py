@@ -7,7 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 
 # give credits
-__author__ = "Kevin Blount"
+__author__ = ["Amanda Yonce", "Nikal Morgan",
+              "Daniel Lomelino", "Kevin Blount"]
 
 import re
 import os
@@ -30,14 +31,16 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
+    """Given a list of file paths, copies those files into the given directory."""
     if not os.path.isdir(dest_dir):
         os.makedirs(dest_dir)
     for path in path_list:
         shutil.copy(path, dest_dir)
-    return
+    return None
 
 
 def zip_to(path_list, dest_zip):
+    """Given a list of file paths, zip those files up into the given zip path."""
     for path in path_list:
         print(f'zip -j {dest_zip} {path}')
         subprocess.run(['zip', '-j', dest_zip, path])
