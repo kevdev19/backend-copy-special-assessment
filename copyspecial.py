@@ -31,7 +31,7 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
-    """Given a list of file paths, copies those files into the given directory."""
+    """Given a list of file paths, copy files into given directory."""
     if not os.path.isdir(dest_dir):
         os.makedirs(dest_dir)
     for path in path_list:
@@ -40,7 +40,7 @@ def copy_to(path_list, dest_dir):
 
 
 def zip_to(path_list, dest_zip):
-    """Given a list of file paths, zip those files up into the given zip path."""
+    """Given a list of file paths, zip those files up into given zip path."""
     for path in path_list:
         print(f'zip -j {dest_zip} {path}')
         subprocess.run(['zip', '-j', dest_zip, path])
